@@ -63,6 +63,8 @@ const char *udp_ip = "127.0.0.1"; // where the master sends datagrams
                                   // (can be a broadcast address)
 const char *udp_slave_ip = "0.0.0.0"; // where the slave reads datagrams
 float udp_seek_threshold = 0.2;   // how far off before we seek
+float adjustment=0.;
+char wasJump=0;
 
 // how far off is still considered equal
 #define UDP_TIMING_TOLERANCE 0.02
@@ -237,10 +239,15 @@ int udp_slave_sync(MPContext *mpctx)
 
         // if we're way off, seek to catch up
         if (FFABS(my_position - udp_master_position) > udp_seek_threshold) {
+			if(wasJump){
+			  adjustment+=udp_master_position-my_position;
+			}
+			wasJump=1;
             mpctx->seek.type  = MPSEEK_ABSOLUTE;
-            mpctx->seek.amount = udp_master_position;
+            mpctx->seek.amount = udp_master_position+adjustment;
             break;
         }
+        wasJump=0;
 
         // normally we expect that the master will have just played the
         // frame we're ready to play.  break out and play it, and we'll be
