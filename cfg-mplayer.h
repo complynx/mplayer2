@@ -38,6 +38,8 @@
 extern char *fb_mode_cfgfile;
 extern char *fb_mode_name;
 
+extern const char* noop___;
+
 extern char *lirc_configfile;
 
 /* only used at startup (setting these values from configfile) */
@@ -476,6 +478,7 @@ const m_option_t common_opts[] = {
     {"rtsp-port", "MPlayer was compiled without networking support.\n", CONF_TYPE_PRINT, CONF_NOCFG, 0, 0, NULL},
     {"rtsp-destination", "MPlayer was compiled without networking support.\n", CONF_TYPE_PRINT, CONF_NOCFG, 0, 0, NULL},
 #endif /* CONFIG_NETWORKING */
+    {"noop", &noop___, CONF_TYPE_STRING, 0, 0, 1, NULL},
 #ifdef CONFIG_UDPDRIVE
     {"udp-slave", &udp_slave, CONF_TYPE_FLAG, 0, 0, 1, NULL},
     {"udp-master", &udp_master, CONF_TYPE_FLAG, 0, 0, 1, NULL},

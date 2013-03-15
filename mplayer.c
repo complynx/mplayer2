@@ -287,6 +287,7 @@ static int total_time_usage_start;
 static int total_frame_cnt;
 static int drop_frame_cnt; // total number of dropped frames
 
+
 // options:
 static int output_quality;
 
@@ -880,6 +881,7 @@ static void exit_sighandler(int x)
 }
 
 #include "cfg-mplayer.h"
+const char* noop___="";
 
 static int cfg_include(struct m_config *conf, char *filename)
 {
